@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { motion } from 'framer-motion';
 import { horizonGroup, verticalGroup } from './homeomorphic';
-import type { Variants } from 'framer-motion';
+import type { Variants, Transition } from 'framer-motion';
 
 interface DSNBCoreProps {
   type: 'vertical' | 'horizontal';
@@ -14,7 +14,6 @@ const DSNBCore: React.FC<DSNBCoreProps> = ({ type }) => {
     <motion.svg
       initial={'start'}
       animate={'end'}
-
       width={475}
       height={475}
       viewBox={'0 0 475 475'}
@@ -22,38 +21,22 @@ const DSNBCore: React.FC<DSNBCoreProps> = ({ type }) => {
     >
       <motion.path
         variants={toVariants(group.lt)}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-            repeatType: 'mirror',
-        }}
+        transition={defaultTransition}
         fill={'#80BAFF'}
       />
       <motion.path
         variants={toVariants(group.lb)}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-            repeatType: 'mirror',
-        }}
+        transition={defaultTransition}
         fill={'#80BAFF'}
       />
       <motion.path
         variants={toVariants(group.rb)}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          repeatType: 'mirror',
-        }}
+        transition={defaultTransition}
         fill={'#80BAFF'}
       />
       <motion.path
         variants={toVariants(group.rt)}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          repeatType: 'mirror',
-        }}
+        transition={defaultTransition}
         fill={'#80BAFF'}
       />
     </motion.svg>
@@ -61,6 +44,12 @@ const DSNBCore: React.FC<DSNBCoreProps> = ({ type }) => {
 };
 
 export default DSNBCore;
+
+const defaultTransition: Transition = {
+  duration: 2,
+  repeat: Infinity,
+  repeatType: 'mirror',
+};
 
 const toVariants = ({
   s1,
