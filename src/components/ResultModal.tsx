@@ -1,9 +1,11 @@
 import { styled } from '@stitches/react';
 import { motion } from 'framer-motion';
+import Star from './StarPop.svg';
 
 const ResultModal = () => {
   return (
     <Wrapper>
+      <img src={Star} width={400} />
       <Title>*** 당첨!</Title>
       <Button>다시하기</Button>
     </Wrapper>
@@ -12,6 +14,7 @@ const ResultModal = () => {
 
 const Wrapper = styled('div', {
   display: 'flex',
+  alignItems: 'center',
   flexDirection: 'column',
   justifyContents: 'center',
   padding: '2rem',
