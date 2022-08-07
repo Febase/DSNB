@@ -1,5 +1,8 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react';
 import './App.css'
+import DSNBBase from './components/DSNBBase'
+import ResultModal from './components/ResultModal/ResultModal';
+import { AnimatePresence } from 'framer-motion';
 import Modal from "./components/Modal/modal";
 import {styled} from '@stitches/react';
 import InputBox from "./components/Input/inputBox";
@@ -36,10 +39,12 @@ const StartButton = styled('button', {
 })
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleModal = () => {
-    setIsModalOpen(state => !state)
-  }
+  const [isStart, setStart] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleStart = () => {
+    setStart(true);
+  };
 
   const [isFill, setIsFill] = useState(false);
 
@@ -49,14 +54,25 @@ function App() {
         <InputBox setIsFill={setIsFill}/>
 
         {isFill && <StartButton>START 동서남북</StartButton>}
-      </AppContainer>
-      {/*<button onClick={handleModal}>모달팝업</button>*/}
 
-      {/*<Modal isOpen={isModalOpen} handleModal={handleModal} title={'동서남북 안내문'}>*/}
-      {/*  <div>modal</div>*/}
-      {/*</Modal>*/}
+        <DSNBBase isStart={isStart} />
+        {/* TODO: 결과 나온뒤 버튼 활성화 처리. 스타일추가 */}
+        {!isStart && <button onClick={handleStart} disabled={isStart}>
+          START
+        </button>}
+        {/* <button onClick={() => setModalOpen(!modalOpen)}>열고닫기</button> */}
+        <AnimatePresence
+          initial={false}
+          exitBeforeEnter={true}
+          onExitComplete={() => null}
+        >
+          {modalOpen && (
+            <ResultModal winnerName='name' onRetry={() => setModalOpen(false)} />
+          )}
+        </AnimatePresence>
+      </AppContainer>
     </Root>
-  )
+  );
 }
 
-export default App
+export default App;
