@@ -4,13 +4,17 @@ import { horizonGroup, verticalGroup } from './homeomorphic';
 import type { Direction } from './utils';
 
 interface DSNBCoreProps {
+  isStart: boolean;
   startPos: Direction;
   count: number;
+  onEnded: () => void;
 }
 
 const DSNBCore: React.FC<DSNBCoreProps> = ({
+  isStart,
   startPos,
   count,
+  onEnded,
 }) => {
   const controls = useAnimationControls();
   const group = horizonGroup;
@@ -19,8 +23,11 @@ const DSNBCore: React.FC<DSNBCoreProps> = ({
 
   const startRotate = (startPos === 't' || startPos === 'b') ? 90 : 0;
   const runCount = React.useRef<number>(0);
+  const endCallback = React.useRef<() => void>(onEnded);
 
   React.useEffect(() => {
+    if (!isStart) return;
+
     const el = ref.current;
     if (el === null) return;
 
@@ -33,11 +40,13 @@ const DSNBCore: React.FC<DSNBCoreProps> = ({
       if (runCount.current < count - 1) {
         runCount.current++;
         run();
+      } else {
+        endCallback.current();
       }
     }
 
     run();
-  }, []);
+  }, [isStart]);
 
   return (
     <MotionConfig

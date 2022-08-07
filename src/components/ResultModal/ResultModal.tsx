@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import Star from './StarPop.svg';
 
 interface Props {
-  winnerName: string;
+  text: string;
   onRetry: () => void;
 }
 
-const ResultModal = ({ winnerName, onRetry }: Props) => {
+const ResultModal = ({ text, onRetry }: Props) => {
   return (
     <Wrapper
       initial={{ opacity: 0, scale: 0.75 }}
@@ -15,7 +15,7 @@ const ResultModal = ({ winnerName, onRetry }: Props) => {
       exit={{ opacity: 0, scale: 0 }}
     >
       <img src={Star} width={400} />
-      <Title>{winnerName} 당첨!</Title>
+      <Title>축하합니다 {text}!</Title>
       <Button onClick={onRetry}>다시하기</Button>
     </Wrapper>
   );
@@ -28,10 +28,12 @@ const Wrapper = styled(motion.div, {
   justifyContents: 'center',
   padding: '2rem',
   backgroundColor: 'white',
-  boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
+  boxShadow: 'rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px',
   borderRadius: '20px',
   width: '80%',
   margin: 'auto',
+  position: 'relative',
+  zIndex: 10
 });
 
 const Title = styled('h1', {
@@ -40,7 +42,7 @@ const Title = styled('h1', {
 
 const Button = styled(motion.button, {
   color: 'white',
-  background: 'linear-gradient(to right, #1fa2ff, #12d8fa, #a6ffcb)',
+  background: '#80B9FF',
   border: 'none',
   width: '100%',
   padding: '1.5rem',

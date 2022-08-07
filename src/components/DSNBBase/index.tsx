@@ -2,14 +2,15 @@ import { AnimatePresence, motion } from "framer-motion";
 
 interface IProps {
   isStart: boolean;
+  onAnimationComplete: () => void;
 }
 
 const variants = {
   hide: { opacity: [1, 0],  rotate: [0, 720]}, //rotateY: [0, 720], rotateX: [0, 720]
-  show: { opacity: [0, 1],  rotate: [720, 0]}, //rotateY: [720, 0], rotateX: [720, 0]
+  show: { opacity: [0, 1, 0],  rotate: [720, 0]}, //rotateY: [720, 0], rotateX: [720, 0]
 };
 
-const DSNBBase = ({ isStart }: IProps) => {
+const DSNBBase = ({ isStart, onAnimationComplete }: IProps) => {
   return (
     <>
       <motion.svg
@@ -21,6 +22,7 @@ const DSNBBase = ({ isStart }: IProps) => {
         key="inner"
         animate={isStart ? "hide" : ""}
         variants={variants}
+        onAnimationComplete={onAnimationComplete}
       >
         <path d="M372 102H102V372H372V102Z" fill="#0074FF" />
         <path d="M237 238L371.234 372.25H102.766L237 238Z" fill="#80BAFF" />
@@ -78,6 +80,9 @@ const DSNBBase = ({ isStart }: IProps) => {
         xmlns="http://www.w3.org/2000/svg"
         animate={isStart ? "show" : ""}
         variants={variants}
+        transition={{
+          ease: 'easeInOut',
+        }}
         key="outer"
       >
         <path
