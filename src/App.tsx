@@ -1,44 +1,47 @@
-import { useState } from 'react'
-import logo from './logo.svg'
+import {useState} from 'react'
 import './App.css'
+import Modal from "./components/Modal/modal";
+import {styled} from '@stitches/react';
+import InputBox from "./components/Input/inputBox";
+
+const Root = styled("div", {
+  background: '#293462',
+  display: "flex",
+  alignItems: 'center',
+  justifyContent: 'center'
+})
+const AppContainer = styled("div", {
+  maxWidth: '1280px',
+  background: 'white',
+  width: '100%',
+  height: '100vh',
+  display : "flex",
+  alignItems: "center",
+  justifyContents: 'center',
+  padding : 20
+})
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleModal = () => {
+    setIsModalOpen(state => !state)
+  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Root className="App">
+      <AppContainer>
+        <InputBox />
+
+        <div>
+
+        </div>
+      </AppContainer>
+      {/*<button onClick={handleModal}>모달팝업</button>*/}
+
+      {/*<Modal isOpen={isModalOpen} handleModal={handleModal} title={'동서남북 안내문'}>*/}
+      {/*  <div>modal</div>*/}
+      {/*</Modal>*/}
+    </Root>
   )
 }
 
