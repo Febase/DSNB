@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import './App.css'
 import Modal from "./components/Modal/modal";
 import {styled} from '@stitches/react';
@@ -20,6 +20,20 @@ const AppContainer = styled("div", {
   justifyContents: 'center',
   padding : 20
 })
+const StartButton = styled('button', {
+  color: '#000',
+  borderRadius: '35px',
+  padding: '10px 25px',
+  fontWeight: 500,
+  cursor: 'pointer',
+  position: 'relative',
+  display: 'inline-block',
+  transition: 'box-shadow 300ms ease-in-out, color 300ms ease-in-out',
+  '&:hover' : {
+    boxShadow: '0 0 40px 40px red inset',
+    color : '#fff'
+  }
+})
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,14 +41,14 @@ function App() {
     setIsModalOpen(state => !state)
   }
 
+  const [isFill, setIsFill] = useState(false);
+
   return (
     <Root className="App">
       <AppContainer>
-        <InputBox />
+        <InputBox setIsFill={setIsFill}/>
 
-        <div>
-
-        </div>
+        {isFill && <StartButton>START 동서남북</StartButton>}
       </AppContainer>
       {/*<button onClick={handleModal}>모달팝업</button>*/}
 
